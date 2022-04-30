@@ -5,7 +5,7 @@ const posts = (posts = [] , action) => {
 
         case "CREATE" :
             console.log(posts);
-            return [...posts.data , action.payload];
+            return [...posts , action.payload];
 
 
         default:
