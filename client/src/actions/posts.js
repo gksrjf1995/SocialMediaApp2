@@ -5,7 +5,7 @@ export const getposts = () => async (dispatch) => {
     try{
         const res = await axios.create({baseURL : "http://localhost:5005/"}).get("/posts");
 
-        dispatch({type:"FETCH_ALL" , payload : res});
+        dispatch({type:"FETCH_ALL" , payload : res.data});
 
     }catch(err){
         console.log(err);

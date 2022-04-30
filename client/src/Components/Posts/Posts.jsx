@@ -1,6 +1,9 @@
 import React from 'react'
 import {useSelector} from "react-redux"
 import stlyes from "./styles"
+import Post from "./Post/Post"
+import {Grid , CircularProgress} from "@material-ui/core"
+
 
 const Posts = () => {
 
@@ -8,7 +11,11 @@ const Posts = () => {
   const classes = stlyes();
   console.log(posts);
   return (
-    <div>Posts</div>
+    !posts.length ? <CircularProgress/> : 
+    <Grid >
+
+    </Grid>
+    
   )
 } 
 
