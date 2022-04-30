@@ -4,7 +4,8 @@ const posts = (posts = [] , action) => {
             return action.payload;
 
         case "CREATE" :
-            return [...posts , action.payload];
+            console.log(posts);
+            return [...posts.data , action.payload];
 
 
         default:
