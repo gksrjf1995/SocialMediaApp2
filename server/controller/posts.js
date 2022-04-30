@@ -14,14 +14,13 @@ export const createpost = async ( req,res ) => {
             message,
             tags,
             selectFile,} = req.body
-        console.log("실행");
-        console.log(
-            
-            
-            tags);
+         
         const newpost = {
-           
-
+            creator,
+            title,
+            message,
+            tags,
+            selectFile,
         }    
         const createdpost = new postModel(newpost);
         await createdpost.save();
