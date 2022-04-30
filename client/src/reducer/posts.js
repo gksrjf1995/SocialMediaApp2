@@ -1,11 +1,11 @@
-export default (posts = [] , action) => {
+const posts = (posts = [] , action) => {
     switch (action.type) {
         case "FETCH_ALL":
             return action.payload;
 
         case "CREATE" :
-
-            return posts;
+            console.log(posts);
+            return [...posts.data , action.payload];
 
 
         default:
@@ -13,3 +13,4 @@ export default (posts = [] , action) => {
     }
 }
 
+export default posts

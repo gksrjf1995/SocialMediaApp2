@@ -1,16 +1,26 @@
-import * as api from "../api/index"
+import axios from "axios";
+const API = axios.create({baseURL : "http://localhost:5005/"});
 
 export const getposts = () => async (dispatch) => {
     try{
-        const res = await api.fetchposts();
+        const res = await axios.create({baseURL : "http://localhost:5005/"}).get("/posts");
 
         dispatch({type:"FETCH_ALL" , payload : res});
 
     }catch(err){
         console.log(err);
-    }
-
-    // const action = {type :"FETCH_ALL" , payload : []}
-
-    // return action
+    } 
 }; 
+
+export const createPost = (newpost) => async (dispatch) => {
+    try{
+        const res = await API.post("/posts" , newpost);
+        console.log(newpost);
+        
+        console.log(res.data);
+        dispatch({type:"CREATE" , payload : res.data});
+
+    }catch(err){
+        console.log(err);
+    }
+}

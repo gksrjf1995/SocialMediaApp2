@@ -9,10 +9,18 @@ export const getposts = async (req,res) =>{
 
 export const createpost = async ( req,res ) => {
     try{
-        const data = req.body
-        
+        const {creator,
+            title,
+            message,
+            tags,
+            selectFile,} = req.body
+         
         const newpost = {
-
+            creator,
+            title,
+            message,
+            tags,
+            selectFile,
         }    
         const createdpost = new postModel(newpost);
         await createdpost.save();
