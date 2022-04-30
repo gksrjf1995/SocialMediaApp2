@@ -9,9 +9,18 @@ export const getposts = async (req,res) =>{
 
 export const createpost = async ( req,res ) => {
     try{
-        const data = req.body
-        
+        const {creator,
+            title,
+            message,
+            tags,
+            selectFile,} = req.body
+        console.log("실행");
+        console.log(
+            
+            
+            tags);
         const newpost = {
+           
 
         }    
         const createdpost = new postModel(newpost);
