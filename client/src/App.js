@@ -11,7 +11,7 @@ function App() {
   const classes = useStyle();
   const dispatch = useDispatch();
   const selector = useSelector(state=>state);
-  
+  console.log("수정 self에서");
   useEffect(()=>{
     dispatch(getposts());
   },[]);
