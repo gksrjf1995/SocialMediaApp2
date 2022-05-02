@@ -8,12 +8,12 @@ const postsSchema = mongoose.Schema({
     tags : {type: [String]},
     selectFile : String,
     likeCount : {
-        tpye : Number,
+        type : Number,
         default : 0
     },
 
 
-},{new : true});
+},{new : true , timestamps : true});
 
 const postModel = mongoose.model('postsSchema',postsSchema);
 
