@@ -5,17 +5,18 @@ import Post from "./Post/Post"
 import {Grid , CircularProgress} from "@material-ui/core"
 
 
-const Posts = () => {
+const Posts = ({ setcurrentId }) => {
   
   const posts = useSelector(state=>state.posts);
+  
   const classes = stlyes();
-
+  
   return (
     !posts.length ? <CircularProgress/> : 
     <Grid container className={classes.Grid} alignItems={"stretch"} spacing={2}>
      {posts.map((item)=>{
        return <Grid item key={item._id} xs={12} sm={6}>
-         <Post post={item}/>
+         <Post post={item} setcurrentId={setcurrentId} />
        </Grid>
          
      })}
