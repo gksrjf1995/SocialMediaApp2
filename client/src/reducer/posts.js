@@ -1,6 +1,11 @@
 const posts = (posts = [] , action) => {
     switch (action.type) {
+        case "DELETE" :
+            console.log(action.payload);
+            return posts.filter((item)=>{return item._id !== action.payload._id});
+
         case "FETCH_ALL":
+          
             return action.payload;
 
         case "CREATE" :
@@ -9,6 +14,7 @@ const posts = (posts = [] , action) => {
         case "UPDATE" :
             return posts.filter((item)=>{return item._id !== action.payload.id ? [...posts] : item});
 
+        
         default:
             return posts;
     }

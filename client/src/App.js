@@ -18,13 +18,13 @@ function App() {
   const classes = useStyle();
   const dispatch = useDispatch();
   const selector = useSelector(state=>state.posts);
-  console.log(selector);
+
   const [currentId , setcurrentId] = useState(null);
   
   useEffect(()=>{
     dispatch(getposts());
-    dispatch(Editpost(currentId));
-  },[currentId]);
+    console.log(currentId);
+  },[currentId , dispatch]);
 
   return (
       <Container maxWidth="lg">

@@ -6,7 +6,7 @@ export const getposts = () => async (dispatch) => {
         const res = await axios.create({baseURL : "http://localhost:5005/"}).get("/posts");
 
         dispatch({type:"FETCH_ALL" , payload : res.data});
-
+        
     }catch(err){
         console.log(err);
     } 
@@ -31,3 +31,15 @@ export const Editpost = (id , data) => async (dispatch) => {
     console.log(res.data);
     dispatch({type:"UPDATE", payload : res.data});
 }
+
+export const deletePost = (id) => async (dispatch) => {
+    try{
+        const res = await API.delete(`/posts/${id}`);
+
+        console.log(res);
+        dispatch({type:"DELETE" , payload : res.data});
+        
+    }catch(err){
+        console.log(err);
+    } 
+}; 
