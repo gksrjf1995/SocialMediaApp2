@@ -4,17 +4,27 @@ import { Container , AppBar , Typography , Grow , Grid} from "@material-ui/core"
 import Posts from "./Components/Posts/Posts"
 import Form from "./Components/Form/Form"
 import useStyle from "./styles"
-import {getposts} from "../src/actions/posts"
+import {getposts , Editpost} from "../src/actions/posts"
 import {useDispatch , useSelector} from "react-redux"
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { useState } from 'react';
 
 function App() {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const selector = useSelector(state=>state);
- 
+  const selector = useSelector(state=>state.posts);
+  console.log(selector);
+  const [currentId , setcurrentId] = useState(null);
+  
   useEffect(()=>{
     dispatch(getposts());
-  },[]);
+    dispatch(Editpost(currentId));
+  },[currentId]);
 
   return (
       <Container maxWidth="lg">
@@ -26,10 +36,10 @@ function App() {
           <Container>
             <Grid container justify='space-between'  spacing={4}>
               <Grid item xs={12} sm={7}>
-                <Posts/>
+                <Posts currentId={currentId} setcurrentId={setcurrentId}/>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Form/>
+                <Form currentId={currentId} setcurrentId={setcurrentId}/>
               </Grid>
             </Grid>
           </Container>

@@ -2,12 +2,15 @@ import React  , {useState}from 'react'
 import { TextField  , Button , Typography , Paper} from '@material-ui/core'
 import styles from "./styles"
 import FileBase64 from 'react-file-base64';
-import {useDispatch} from "react-redux"
-import {createPost} from "../../actions/posts"
+import {useDispatch , useSelector} from "react-redux"
+import {createPost, Editpost} from "../../actions/posts"
 
 
-const Form = () => {
+const Form = ({currentId ,setcurrentId}) => {
   const classes = styles(); 
+  const target = useSelector((state)=> currentId ? state.posts.find((item)=>{return item._id === currentId}) : state.posts);
+  console.log(currentId);
+  console.log(target);
   const dispatch = useDispatch(); 
   const [postsDate ,setPostsDate] = useState({
     creator : "",
@@ -20,7 +23,12 @@ const Form = () => {
   const handlesubmit = (e) => {
     e.preventDefault();
     console.log(postsDate);
-    dispatch(createPost(postsDate));
+    
+    if(!currentId){
+      dispatch(Editpost(currentId,postsDate));
+    }else{
+      dispatch(createPost(postsDate));
+    }
   }
 
   const clear = () => {

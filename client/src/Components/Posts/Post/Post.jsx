@@ -1,14 +1,22 @@
-import React from 'react'
+import React , { useState } from 'react'
 import {Card , CardActions , CardContent , CardMedia ,Button , Typography } from "@material-ui/core"
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import moment from "moment"
 import UseStyles from "./styles"
+import { useDispatch } from 'react-redux';
 
-const Post = ({post}) => {
+
+
+const Post = ({post , setcurrentId}) => {
   const styles = UseStyles();
-  console.log(post);
+  const dispatch = useDispatch();
+  const postEdit = () => {
+    setcurrentId(post._id);
+  } 
+  
+ 
   return (
     <Card className={styles.card} >
       <CardMedia className={styles.media} image={post.selectFile} title={post.title}/>
@@ -17,7 +25,7 @@ const Post = ({post}) => {
         <Typography variant={"body2"}>{moment(post.createdAt).fromNow()}</Typography>
       </div>
       <div className={styles.overlay2}>
-        <Button style={{color:"white"}} size="small" onClick={()=>{}}>
+        <Button style={{color:"white"}} size="small" onClick={postEdit}>
           <MoreHorizIcon />
         </Button>
       </div>

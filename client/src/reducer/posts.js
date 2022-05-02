@@ -4,9 +4,10 @@ const posts = (posts = [] , action) => {
             return action.payload;
 
         case "CREATE" :
-            console.log(posts);
             return [...posts , action.payload];
-
+            
+        case "UPDATE" :
+            return posts.filter((item)=>{return item._id !== action.payload.id ? [...posts] : item});
 
         default:
             return posts;
