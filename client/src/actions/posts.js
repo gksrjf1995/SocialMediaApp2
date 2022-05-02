@@ -24,3 +24,10 @@ export const createPost = (newpost) => async (dispatch) => {
         console.log(err);
     }
 }
+
+export const Editpost = (id , data) => async (dispatch) => {
+    
+    const res = await API.patch(`/posts/${id}`,data);
+    console.log(res.data);
+    dispatch({type:"UPDATE", payload : res.data});
+}
