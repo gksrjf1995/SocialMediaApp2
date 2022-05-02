@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import moment from "moment"
 import UseStyles from "./styles"
+import {deletePost , getposts} from "../../../actions/posts"
 import { useDispatch } from 'react-redux';
 
 
@@ -16,6 +17,11 @@ const Post = ({post , setcurrentId}) => {
     setcurrentId(post._id);
   } 
   
+  const deletepostEv = () => {
+    dispatch(deletePost(post._id));
+    dispatch(getposts());
+    console.log("getposts실행");
+  }
  
   return (
     <Card className={styles.card} >
@@ -33,16 +39,16 @@ const Post = ({post , setcurrentId}) => {
       <div className={styles.details}>
         <Typography variant="body2" color="textSecondary">{post.tags.map((item)=>{return `#${item}`}).join(",")}</Typography>
       </div>
-
+      <Typography  variant="h5" className={styles.title} >{post.title}</Typography>
       <CardContent>
-        <Typography className={styles.title} variant="h5" gutterBottom >{post.message}</Typography>
+        <Typography  variant="h5" gutterBottom >{post.message}</Typography>
       </CardContent>
       <CardActions className={styles.CardActions}>
         <Button size={"small"} color="primary" onclick={()=>{}} >
-          <ThumbUpIcon fontSize={"small"}/> 
-           Like {post.likeCount}
+          <ThumbUpIcon fontSize={"small"} /> 
+           <p>Like {post.likeCount}</p>
         </Button>
-        <Button size={"small"} color="primary" onclick={()=>{}} >
+        <Button size={"small"} color="primary" onClick={deletepostEv} >
           <DeleteIcon fontSize={"small"}/>
           Delete
         </Button>
