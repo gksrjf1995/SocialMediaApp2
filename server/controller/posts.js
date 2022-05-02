@@ -29,3 +29,15 @@ export const createpost = async ( req,res ) => {
         console.log(err);
     }
 }
+
+export const updatePost = (req,res) => {
+    const {id} = req.params
+    
+    try{
+
+    }catch(err){
+        
+    }
+
+
+}
