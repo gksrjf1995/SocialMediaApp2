@@ -32,11 +32,11 @@ export const createpost = async ( req,res ) => {
 
 export const updatePost = (req,res) => {
     const {id} = req.params
-    
-    try{
-
-    }catch(err){
         
+    try{
+        
+    }catch(err){
+
     }
 
 
