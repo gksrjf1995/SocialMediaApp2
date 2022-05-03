@@ -5,24 +5,38 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import moment from "moment"
 import UseStyles from "./styles"
-import {deletePost , getposts} from "../../../actions/posts"
+import {deletePost , getposts , likePost} from "../../../actions/posts"
 import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
 
 
 
 const Post = ({post , setcurrentId}) => {
   const styles = UseStyles();
   const dispatch = useDispatch();
+  const [likecount ,setlikeCount] = useState(false);
   const postEdit = () => {
     setcurrentId(post._id);
   } 
   
   const deletepostEv = () => {
     dispatch(deletePost(post._id));
-    dispatch(getposts());
-    console.log("getposts실행");
+   
+    
   }
- 
+  const likePostEv = () => {
+    dispatch(likePost(post._id));
+    setlikeCount(current=>!current);
+  }
+
+  useEffect(()=>{
+    console.log("실행");
+    console.log(likecount);
+    dispatch(getposts());
+   
+  },[likecount]);
+
   return (
     <Card className={styles.card} >
       <CardMedia className={styles.media} image={post.selectFile} title={post.title}/>
@@ -44,7 +58,7 @@ const Post = ({post , setcurrentId}) => {
         <Typography  variant="h5" gutterBottom >{post.message}</Typography>
       </CardContent>
       <CardActions className={styles.CardActions}>
-        <Button size={"small"} color="primary" onclick={()=>{}} >
+        <Button size={"small"} color="primary" onClick={likePostEv} >
           <ThumbUpIcon fontSize={"small"} /> 
            <p>Like {post.likeCount}</p>
         </Button>
