@@ -17,13 +17,13 @@ import { useState } from 'react';
 function App() {
   const classes = useStyle();
   const dispatch = useDispatch();
-  const selector = useSelector(state=>state.posts);
+
 
   const [currentId , setcurrentId] = useState(null);
   
   useEffect(()=>{
     dispatch(getposts());
-    console.log(currentId);
+    
   },[currentId , dispatch]);
 
   return (

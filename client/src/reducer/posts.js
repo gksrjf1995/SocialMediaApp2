@@ -12,9 +12,9 @@ const posts = (posts = [] , action) => {
             return [...posts , action.payload];
             
         case "UPDATE" :
+        case "LIKEPOST" :
             return posts.filter((item)=>{return item._id !== action.payload.id ? [...posts] : item});
 
-        
         default:
             return posts;
     }
