@@ -51,16 +51,16 @@ const Post = ({post , setcurrentId}) => {
       </div>
 
       <div className={styles.details}>
-        <Typography variant="body2" color="textSecondary">{post.tags.map((item)=>{return `#${item}`}).join(",")}</Typography>
+        <Typography variant="body2" color="textSecondary">{ post.tags.map((item)=>{return `#${item} `})}</Typography>
       </div>
       <Typography  variant="h5" className={styles.title} >{post.title}</Typography>
       <CardContent>
-        <Typography  variant="h5" gutterBottom >{post.message}</Typography>
+        <Typography  variant="body2" color="textSecondary" component={"p"} >{post.message}</Typography>
       </CardContent>
       <CardActions className={styles.CardActions}>
         <Button size={"small"} color="primary" onClick={likePostEv} >
           <ThumbUpIcon fontSize={"small"} /> 
-           <p>Like {post.likeCount}</p>
+           <p>&nbsp;Like &nbsp;{post.likeCount}</p>
         </Button>
         <Button size={"small"} color="primary" onClick={deletepostEv} >
           <DeleteIcon fontSize={"small"}/>
