@@ -4,11 +4,13 @@ import postModel from "../Schema/postSchema.js";
 
 export const getposts = async (req,res) =>{
    const allPosts = await postModel.find({});
-
+    console.log(req.session);
    try{
+      
+        
        res.status(200).json(allPosts);
    }catch(err){
-       console.log(err);
+       console.log(err);    
    }
    
 }

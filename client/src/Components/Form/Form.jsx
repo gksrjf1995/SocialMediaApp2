@@ -61,7 +61,7 @@ const Form = ({currentId ,setcurrentId}) => {
         <TextField name="creator" label='제작자' variant="outlined" fullWidth value={postsDate.creator} onChange={e=>setPostsDate({...postsDate , creator : e.target.value })}/>
         <TextField name="title"  label='제목' variant="outlined" fullWidth value={postsDate.title} onChange={e=>setPostsDate({...postsDate , title : e.target.value })}/>
         <TextField name="message"  label='메세지' variant="outlined" fullWidth value={postsDate.message} onChange={e=>setPostsDate({...postsDate , message : e.target.value })}/>
-        <TextField name="tags"  label='태그' variant="outlined" fullWidth value={postsDate.tags} onChange={e=>setPostsDate({...postsDate , tags : e.target.value })}/>
+        <TextField name="tags"  label='태그' variant="outlined" fullWidth value={postsDate.tags} onChange={e=>setPostsDate({...postsDate , tags : e.target.value.split(",") })}/>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" fullWidth type="submit">작성완료</Button>
         <Button className={classes.buttonSubmit} variant="contained" color="secondary" fullWidth size="small" onClick={clear}>지우기</Button>
       </form>
