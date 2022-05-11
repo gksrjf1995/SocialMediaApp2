@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const classes = usestlye();
-  const user = true
+  const user = false
   return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
           <div className={classes.brandContainer}>
-          <Typography variant='h2' align='center' className={classes.heading}>Media App</Typography>
+         
+            <Typography variant='h2' component={Link} to="/" align='center' className={classes.heading}>Media App</Typography>
+
           <Toolbar className={classes.toolbar}>
             {user ? <div className={classes.profile}>
               <Avatar className={classes.purple} alt={user} src={user}>{user}</Avatar>
