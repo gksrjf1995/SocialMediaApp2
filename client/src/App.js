@@ -1,12 +1,11 @@
 import React , {useEffect} from 'react';
-import memories from "./images/memories.png"
-import { Container , AppBar , Typography , Grow , Grid} from "@material-ui/core"
+import { Container , Grow , Grid} from "@material-ui/core"
 import Posts from "./Components/Posts/Posts"
 import Form from "./Components/Form/Form"
 import useStyle from "./styles"
-import {getposts , Editpost} from "../src/actions/posts"
-import {useDispatch , useSelector} from "react-redux"
-
+import {getposts} from "../src/actions/posts"
+import {useDispatch} from "react-redux"
+import Navbar from './Components/Navbar/Navbar';
 import {
   BrowserRouter,
   Routes,
@@ -14,13 +13,14 @@ import {
 } from "react-router-dom";
 import { useState } from 'react';
 
+
 function App() {
   const classes = useStyle();
   const dispatch = useDispatch();
-
+  
 
   const [currentId , setcurrentId] = useState(null);
-  
+
   useEffect(()=>{
     dispatch(getposts());
     
@@ -28,13 +28,10 @@ function App() {
 
   return (
       <Container maxWidth="lg">
-        <AppBar className={classes.appBar} position='static' color='inherit'>
-          <Typography variant='h2' align='center' className={classes.heading}>Media App</Typography>
-          <img src={memories} className={classes.image} height="60" alt={"images"}/>
-        </AppBar>
+        <Navbar/>
         <Grow in>
           <Container>
-            <Grid container justify='space-between'  spacing={4}>
+            <Grid container className={classes.mainContainer} justify='space-between'  spacing={4}>
               <Grid item xs={12} sm={7}>
                 <Posts currentId={currentId} setcurrentId={setcurrentId}/>
               </Grid>
