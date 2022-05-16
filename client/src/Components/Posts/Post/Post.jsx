@@ -8,7 +8,7 @@ import UseStyles from "./styles"
 import {deletePost , getposts , likePost} from "../../../actions/posts"
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-
+import axios from "axios"
 
 
 
@@ -31,10 +31,11 @@ const Post = ({post , setcurrentId}) => {
   }
 
   useEffect(()=>{
-    console.log("실행");
-    console.log(likecount);
+   
     dispatch(getposts());
    
+    
+  
   },[likecount]);
 
   return (
