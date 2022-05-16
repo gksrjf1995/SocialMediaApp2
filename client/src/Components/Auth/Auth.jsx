@@ -3,9 +3,12 @@ import {Typography , Button , Paper , Grid , Container , Avatar, TextField } fro
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import useStyle  from "./styles"
 import Input from "./Input"
+import kakao from "../../images/kakao.png"
+import axios from "axios";
+import { useEffect } from 'react';
 const Auth = () => {
   const classes = useStyle();
-
+  
   const [ showpassword , setshowpassword] = useState(false);
   const [isSignup , setisSignup] = useState(false);
   const [value , setvalues ] = useState({
@@ -30,6 +33,12 @@ const Auth = () => {
     setisSignup(current=>!current);
     showpassword(false);
   }
+  const kakaoLogin = () => {
+    window.open("http://localhost:5005/oauth/kakao");
+  }
+
+  
+  
   return (
     <Container component={"main"} maxWidth="xs">
        <Paper className={classes.paper}>
@@ -51,7 +60,9 @@ const Auth = () => {
                                 <Input type={"email"} changeEvent={changeEvent} name={"email"} label={"email"} autoFocus half/>
                                 <Input type={showpassword ? "text" : "password"} handleshowpassword={handleshowpassword} changeEvent={changeEvent} name={"password"} label={"password"} autoFocus half/>
                                 {isSignup && <Input type={showpassword ? "text" : "password"} changeEvent={changeEvent} name={"cofirmpassword"} label={"cofirmpassword"} autoFocus half/>}                            
-                            
+                                <Button onClick={kakaoLogin} fullWidth className={classes.googleButton} >
+                                  <img src={kakao} alt={"카카오 이미지"}/>
+                                </Button>
                    
 
                 </Grid>

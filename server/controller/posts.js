@@ -4,9 +4,9 @@ import postModel from "../Schema/postSchema.js";
 
 export const getposts = async (req,res) =>{
    const allPosts = await postModel.find({});
-    console.log(req.session);
+   
    try{
-      
+
         
        res.status(200).json(allPosts);
    }catch(err){
@@ -59,7 +59,6 @@ export const deletePost = async ( req,res) => {
 
 export const likepost = async( req , res ) => {
     const {id} = req.params
-    console.log(id);
     if(!mongoose.isValidObjectId(id)) return res.status(400).send("오류"); 
     try{
         const findone = await postModel.findById({_id : id});

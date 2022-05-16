@@ -9,8 +9,7 @@ import {createPost, Editpost} from "../../actions/posts"
 const Form = ({currentId ,setcurrentId}) => {
   const classes = styles(); 
   const target = useSelector((state)=> currentId ? state.posts.find((item)=>{return item._id === currentId}) : state.posts);
-  console.log(currentId);
-  console.log(target);
+
   const dispatch = useDispatch(); 
   const [postsDate ,setPostsDate] = useState({
     creator : "",
@@ -38,7 +37,7 @@ const Form = ({currentId ,setcurrentId}) => {
   }
 
   const clear = () => {
-    console.log("지우기실행");
+
     setcurrentId(null);
     setPostsDate({
       creator : "",

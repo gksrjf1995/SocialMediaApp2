@@ -3,7 +3,7 @@ import { Container , Grow , Grid} from "@material-ui/core"
 import Posts from "../Posts/Posts"
 import Form from  "../Form/Form"
 import useStyle from "./styles"
-
+import axios from 'axios'
 import {getposts} from "../../actions/posts"
 import {useDispatch} from "react-redux"
 const Home = () => {
@@ -13,7 +13,20 @@ const Home = () => {
 
   useEffect(()=>{
     dispatch(getposts());
-    console.log(currentId); 
+    const getkakao = async() => {
+      try{
+        const res = await axios.get("http://localhost:5005/oauth/success",{
+          withCredentials : true ,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log(res);
+      }catch(err){
+        console.log(err);
+      }
+    }
+    getkakao();
   },[currentId , dispatch]);
   
 
