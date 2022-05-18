@@ -2,14 +2,14 @@ import React from 'react'
 import usestlye from "./style"
 import {AppBar , Typography , Toolbar, Avatar , Button } from "@material-ui/core"
 import { Link } from 'react-router-dom';
-import {useSelector} from "react-redux"
+import {useSelector , useDispatch} from "react-redux"
 import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 
 const Navbar = () => {
   const selector = useSelector(state=>state.auth.user);
-  console.log(selector);
+  const dispatch = useDispatch();
   const classes = usestlye();
   
   useEffect(()=>{
@@ -18,8 +18,9 @@ const Navbar = () => {
   },[selector?.id]);
   
   const logoutBtn = () => {
-   window.open("http://localhost:5005/oauth/logout","_self");
+    dispatch({type:"LOGOUT"})
   }
+
   return (
     <AppBar className={classes.appBar} position='static' color='inherit'>
           <div className={classes.brandContainer}>
