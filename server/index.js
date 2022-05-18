@@ -8,13 +8,25 @@ import session from "express-session";
 import passport from "passport";
 import kakao from "passport-kakao"
 import auth from "./routes/auth.js";
+import google from'passport-google-oauth20'
+import MongoStore  from "connect-mongo"
     
 const app = express();
+const GoogleStrategy  = google.Strategy;
 const KakaoStrategy = kakao.Strategy;
+dotenv.config();
+var hour = 3600000
 app.use(session({
     secret: 'gksrjf1995',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    maxAge: Date.now() + hour,
+    store : MongoStore.create({
+      mongoUrl : process.env.SERVER_URL,
+      ttl : 7 * 12 * 30 * 30,
+      autoRemove : 'interval',
+      autoRemoveInterval : 60,
+    }),
 }));
 
 app.use(passport.initialize());
@@ -34,27 +46,37 @@ passport.use(new KakaoStrategy({
     callbackURL: "http://localhost:5005/oauth/kakao/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    
+    profile.token = accessToken
+    profile.user = true;
     done(null,profile);
   }
 ));
 
-dotenv.config();
+passport.use(new GoogleStrategy({
+  clientID: "1087812759980-t0eptdo5s77nma3kn8mp2trvv12vkt46.apps.googleusercontent.com",
+  clientSecret: "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",
+  callbackURL: "http://localhost:5005/oauth/google/callback"
+},
+function(accessToken, refreshToken, profile, cb){
+  profile.user = true;
+  profile.token = accessToken
+  cb(null,profile);
+}
+));
+
+
 const PORT = process.env.PORT_NUMBER;
 const MONGOOSE_URL = process.env.SERVER_URL;
 
-app.use("/",(req,res,next)=>{
-    
-    next();
-});
+  
 
 app.use(bodyParser.json({limit : "30mb" , extended : true}));
 app.use(bodyParser.urlencoded({limit : "30mb" , extended : true}));
 app.use(
-    cors({
-      origin: "http://localhost:3000", // server의 url이 아닌, 요청하는 client의 url
-      credentials: true
-    }));
+  cors({
+  origin: "http://localhost:3000", 
+  credentials: true 
+  })); 
 
 app.use("/posts",router);
 app.use("/oauth",auth);

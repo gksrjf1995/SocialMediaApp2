@@ -13,20 +13,7 @@ const Home = () => {
 
   useEffect(()=>{
     dispatch(getposts());
-    const getkakao = async() => {
-      try{
-        const res = await axios.get("http://localhost:5005/oauth/success",{
-          withCredentials : true ,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(res);
-      }catch(err){
-        console.log(err);
-      }
-    }
-    getkakao();
+    
   },[currentId , dispatch]);
   
 
