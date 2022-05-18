@@ -3,7 +3,7 @@ import POST_CONT from "../actions/constant";
 const posts = (posts = [] , action) => {
     switch (action.type) {
         case "DELETE" :
-            console.log(action.payload);
+            
             return posts.filter((item)=>{return item._id !== action.payload._id});
 
         case POST_CONT.FETCH_ALL:
