@@ -11,7 +11,7 @@ const Form = ({currentId ,setcurrentId}) => {
   const target = useSelector((state)=> currentId ? state.posts.find((item)=>{return item._id === currentId}) : state.posts);
 
   const dispatch = useDispatch(); 
-  const [postsDate ,setPostsDate] = useState({
+  const [postsDate , setPostsDate] = useState({
     creator : "",
     title : "",
     tags : "", 

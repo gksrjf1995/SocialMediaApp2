@@ -5,14 +5,18 @@ import useStyle from "./styles"
 import Input from "./Input"
 import kakao from "../../images/kakao.png"
 import Icon from './Icon';
-import {useDispatch , useSelector} from "react-redux"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { homesignup , homesignin } from "../../actions/auth"
+
 const Auth = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [showpassword, setshowpassword] = useState(false);
   const [isSignup, setisSignup] = useState(false);
-  const [value, setvalues] = useState({
+  const [formData, setformData] = useState({
     email: "",
     name: "",
     password: "",
@@ -20,15 +24,21 @@ const Auth = () => {
     firstName: "",
     lastName: "",
   });
-  const submitEvent = () => {
-
+  const submitEvent = (e) => {
+    e.preventDefault();
+    if(isSignup){
+      dispatch(homesignup(formData,navigate));
+    }else{
+      dispatch(homesignin(formData,navigate));
+    }
   }
   const handleshowpassword = () => {
     setshowpassword(current => !current);
   }
 
   const changeEvent = (e) => {
-    setvalues(current => e);
+    console.log(e.target.name);
+    return setformData({...formData , [e.target.name] : e.target.value});
   }
   
   const switchmode = () => {
@@ -81,8 +91,8 @@ const Auth = () => {
             <Button onClick={kakaoLogin} fullWidth className={classes.googleButton} >
               <img src={kakao} alt={"카카오 이미지"} />
             </Button>
-            <Button onClick={gitLogin}>
-              깃허브
+            <Button onClick={gitLogin} fullWidth className={classes.googleButton}>
+              <img width={"50em"} src={"https://cdn-icons-png.flaticon.com/512/25/25231.png"} alt={"카카오 이미지"} />
             </Button>
 
           </Grid>
