@@ -19,16 +19,18 @@ function App() {
       try{
         const res = await axios.get("http://localhost:5005/oauth/success",{
           withCredentials : true ,
-          // headers: {
-          //   'Content-Type': 'application/json',
-          //   "Access-Control-Allow-Credentials": true,
-          // },
+          headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Credentials": true,
+          },
         });
-        console.log(res.data.user);
+        console.log(res.data);
         if(res?.data?.user){
           dispatch({type : "LOGIN" ,  data : { user : res?.data?.user , token : res?.data?.user?.token }})
         }else {
-          console.log("로그인 다시 시도");
+          console.log("여기가 실행");
+          console.log(res.data.gitdata);
+          dispatch({type : "LOGIN_GIT" ,  data : { git : res?.data?.gitdata , token :res?.data?.gitdata?.token}})
         }
       }catch(err){
         console.log(err);
@@ -36,7 +38,7 @@ function App() {
     }
     getkakao();
   },[]);
- 
+  
 
 
   return (

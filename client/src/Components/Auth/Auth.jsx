@@ -6,7 +6,6 @@ import Input from "./Input"
 import kakao from "../../images/kakao.png"
 import Icon from './Icon';
 import {useDispatch , useSelector} from "react-redux"
-import axios from 'axios';
 const Auth = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
@@ -44,7 +43,15 @@ const Auth = () => {
     window.open("http://localhost:5005/oauth/google","_self");
   }
 
-  
+  const gitLogin = () => {
+    const optionUrl = {
+      client_id : "6883f433e1c1f25b525f",
+      scopeUserEmail : "user:emai",
+      scopeUserName : "read:user",
+    }
+    window.open(`https://github.com/login/oauth/authorize?client_id=${optionUrl.client_id}&scope=${optionUrl.scopeUserEmail}%20${optionUrl.scopeUserName}`,"_self");
+    
+  }
 
 
   return (
@@ -74,7 +81,9 @@ const Auth = () => {
             <Button onClick={kakaoLogin} fullWidth className={classes.googleButton} >
               <img src={kakao} alt={"카카오 이미지"} />
             </Button>
-
+            <Button onClick={gitLogin}>
+              깃허브
+            </Button>
 
           </Grid>
           <Button type="submit" fullWidth variant='contained' color="primary" className={classes.submit}>
