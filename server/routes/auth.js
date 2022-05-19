@@ -12,16 +12,16 @@ auth.get('/google', passport.authenticate('google', { scope: ['profile',"email"]
 auth.get("/logout", (req,res)=>{
     console.log("logout");
     req.logout();
+    req.session.destroy();
     res.status(200).redirect("http://localhost:3000/");
         
 });
 
 auth.get("/success",(req,res)=>{
-    req.session.login = true;
+  
     res.status(200).json({
-        success: true,
-        message: "successfull",
         user: req.user,
+        gitdata : req.session.gitdata,
         sessoin : req.session.login,
       });
 });
@@ -55,19 +55,29 @@ auth.get("/github/callback", async(req,res)=>{
         const token = result.get("access_token");
         const token_type = result.get("token_type");
         if(token){
+            req.session.gittoken = token
+            console.log(token);
             const get_token = await aixos.get("https://api.github.com/user",{
                 headers : {
                     Authorization: `token  ${token}`
                 }
             });
-            console.log(get_token.data);
+            
+            req.session.gitdata = get_token.data
+            req.session.gitdata.token = token
+            return res.status(200).redirect("http://localhost:3000");
+
         }
         
     }catch(err){
         console.log(err);
     }
-   
-   
+});
+auth.get("/github/getdata",(req,res)=>{
+    
+    return res.status(200).json({
+        gitdata : req.session.gitdata
+    });
 });
 
 export default auth

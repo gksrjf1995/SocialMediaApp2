@@ -6,7 +6,6 @@ import Input from "./Input"
 import kakao from "../../images/kakao.png"
 import Icon from './Icon';
 import {useDispatch , useSelector} from "react-redux"
-import axios from 'axios';
 const Auth = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
@@ -51,6 +50,7 @@ const Auth = () => {
       scopeUserName : "read:user",
     }
     window.open(`https://github.com/login/oauth/authorize?client_id=${optionUrl.client_id}&scope=${optionUrl.scopeUserEmail}%20${optionUrl.scopeUserName}`,"_self");
+    
   }
 
 

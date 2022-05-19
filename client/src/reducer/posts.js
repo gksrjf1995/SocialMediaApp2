@@ -16,7 +16,7 @@ const posts = (posts = [] , action) => {
         case POST_CONT.UPDATE :
         case POST_CONT.LIKEPOST :
             return posts.filter((item)=>{return item._id !== action.payload.id ? [...posts] : item});
-
+            
         default:
             return posts;
     }
