@@ -14,7 +14,7 @@ const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showpassword, setshowpassword] = useState(false);
+  const [showpassword, setshowpassword] = useState(true);
   const [isSignup, setisSignup] = useState(false);
   const [formData, setformData] = useState({
     email: "",
@@ -27,8 +27,10 @@ const Auth = () => {
   const submitEvent = (e) => {
     e.preventDefault();
     if(isSignup){
+      console.log(isSignup);
       dispatch(homesignup(formData,navigate));
     }else{
+      console.log("로그인");
       dispatch(homesignin(formData,navigate));
     }
   }
@@ -43,7 +45,7 @@ const Auth = () => {
   
   const switchmode = () => {
     setisSignup(current => !current);
-    showpassword(false);
+    
   }
   const kakaoLogin = () => {
     window.open("http://localhost:5005/oauth/kakao","_self");
@@ -77,14 +79,15 @@ const Auth = () => {
               isSignup && (
                 <>
                   <Grid container>
-                    <Input type={"email"} changeEvent={changeEvent} name={"firstName"} label={"firstName"} autoFocus />
-                    <Input type={"password"} changeEvent={changeEvent} name={"lastName"} label={"lastName"} autoFocus />
+                    <Input type={"text"} changeEvent={changeEvent} name={"firstName"} label={"firstName"} autoFocus />
+                    <Input type={"text"} changeEvent={changeEvent} name={"lastName"} label={"lastName"} autoFocus />
+
                   </Grid>
                 </>
               )}
             <Input type={"email"} changeEvent={changeEvent} name={"email"} label={"email"} autoFocus half />
-            <Input type={showpassword ? "text" : "password"} handleshowpassword={handleshowpassword} changeEvent={changeEvent} name={"password"} label={"password"} autoFocus half />
-            {isSignup && <Input type={showpassword ? "text" : "password"} changeEvent={changeEvent} name={"cofirmpassword"} label={"cofirmpassword"} autoFocus half />}
+            <Input type={showpassword ?  "password" :  "text" } handleshowpassword={handleshowpassword} changeEvent={changeEvent} name={"password"} label={"password"} autoFocus half />
+            {isSignup && <Input type={showpassword ? "password"  :"text" } changeEvent={changeEvent} name={"cofirmpassword"} label={"cofirmpassword"} autoFocus half />}
             <Button onClick={googleLogin} fullWidth className={classes.googleButton} >
               <Icon/>구글 로그인
             </Button>
