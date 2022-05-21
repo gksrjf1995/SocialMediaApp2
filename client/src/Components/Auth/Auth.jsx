@@ -5,14 +5,18 @@ import useStyle from "./styles"
 import Input from "./Input"
 import kakao from "../../images/kakao.png"
 import Icon from './Icon';
-import {useDispatch , useSelector} from "react-redux"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { homesignup , homesignin } from "../../actions/auth"
+
 const Auth = () => {
   const classes = useStyle();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [showpassword, setshowpassword] = useState(false);
+  const [showpassword, setshowpassword] = useState(true);
   const [isSignup, setisSignup] = useState(false);
-  const [value, setvalues] = useState({
+  const [formData, setformData] = useState({
     email: "",
     name: "",
     password: "",
@@ -20,20 +24,28 @@ const Auth = () => {
     firstName: "",
     lastName: "",
   });
-  const submitEvent = () => {
-
+  const submitEvent = (e) => {
+    e.preventDefault();
+    if(isSignup){
+      console.log(isSignup);
+      dispatch(homesignup(formData,navigate));
+    }else{
+      console.log("로그인");
+      dispatch(homesignin(formData,navigate));
+    }
   }
   const handleshowpassword = () => {
     setshowpassword(current => !current);
   }
 
   const changeEvent = (e) => {
-    setvalues(current => e);
+    console.log(e.target.name);
+    return setformData({...formData , [e.target.name] : e.target.value});
   }
   
   const switchmode = () => {
     setisSignup(current => !current);
-    showpassword(false);
+    
   }
   const kakaoLogin = () => {
     window.open("http://localhost:5005/oauth/kakao","_self");
@@ -67,22 +79,23 @@ const Auth = () => {
               isSignup && (
                 <>
                   <Grid container>
-                    <Input type={"email"} changeEvent={changeEvent} name={"firstName"} label={"firstName"} autoFocus />
-                    <Input type={"password"} changeEvent={changeEvent} name={"lastName"} label={"lastName"} autoFocus />
+                    <Input type={"text"} changeEvent={changeEvent} name={"firstName"} label={"firstName"} autoFocus />
+                    <Input type={"text"} changeEvent={changeEvent} name={"lastName"} label={"lastName"} autoFocus />
+
                   </Grid>
                 </>
               )}
             <Input type={"email"} changeEvent={changeEvent} name={"email"} label={"email"} autoFocus half />
-            <Input type={showpassword ? "text" : "password"} handleshowpassword={handleshowpassword} changeEvent={changeEvent} name={"password"} label={"password"} autoFocus half />
-            {isSignup && <Input type={showpassword ? "text" : "password"} changeEvent={changeEvent} name={"cofirmpassword"} label={"cofirmpassword"} autoFocus half />}
+            <Input type={showpassword ?  "password" :  "text" } handleshowpassword={handleshowpassword} changeEvent={changeEvent} name={"password"} label={"password"} autoFocus half />
+            {isSignup && <Input type={showpassword ? "password"  :"text" } changeEvent={changeEvent} name={"cofirmpassword"} label={"cofirmpassword"} autoFocus half />}
             <Button onClick={googleLogin} fullWidth className={classes.googleButton} >
               <Icon/>구글 로그인
             </Button>
             <Button onClick={kakaoLogin} fullWidth className={classes.googleButton} >
               <img src={kakao} alt={"카카오 이미지"} />
             </Button>
-            <Button onClick={gitLogin}>
-              깃허브
+            <Button onClick={gitLogin} fullWidth className={classes.googleButton}>
+              <img width={"50em"} src={"https://cdn-icons-png.flaticon.com/512/25/25231.png"} alt={"카카오 이미지"} />
             </Button>
 
           </Grid>
