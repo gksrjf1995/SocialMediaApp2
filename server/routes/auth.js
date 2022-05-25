@@ -7,10 +7,15 @@ import {singup , logout , success , githublogin , getgitdata , homegetData } fro
 
 const auth = Router();
 
+// auth.use((req,res,next)=>{
+//     console.log("auth 미들웨어");
+//     console.log(req.session.passport);
+//     next();
+// });
 
 auth.get("/kakao", passport.authenticate("kakao"));
 auth.get('/google', passport.authenticate('google', { scope: ['profile',"email"] }));
-auth.get("/kakao/callback", passport.authenticate("kakao",{
+auth.get("/kakao/callback",  passport.authenticate("kakao",{
     successRedirect : "http://localhost:3000",
     failureRedirect : "/login/failed"
 }));

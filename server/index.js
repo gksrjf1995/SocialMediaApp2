@@ -20,7 +20,7 @@ var hour = 3600000
 app.use(session({
     secret: 'gksrjf1995',
     resave: false,
-    name : "Gitlogin",
+    proxy: false,
     saveUninitialized: false,
     maxAge: Date.now() + hour,
     store : MongoStore.create({
@@ -39,9 +39,11 @@ passport.serializeUser((id,done)=>{
   done(null,id);
 });
 
-passport.deserializeUser((id,done)=>{ 
+passport.deserializeUser((id,done)=>{
   done(null,id);
 });
+
+
 
 passport.use(new KakaoStrategy({
     clientID: "683982064dea966dfeccde0a2a056486",   
@@ -69,7 +71,9 @@ passport.use(new GoogleStrategy({
   
   try{
     const sessionUser = new userModel({email : profile?.emails[0]?.value});
-    await sessionUser.save();
+    if(!sessionUser){
+      await sessionUser.save();
+    }
     cb(null,profile);
   }catch(err){
     console.log(err);
@@ -83,15 +87,25 @@ const PORT = process.env.PORT_NUMBER;
 const MONGOOSE_URL = process.env.SERVER_URL;
 
 
-
+app.use("/",(req,res,next)=>{
+ 
+  if(req?.session?.passport){
+    req.session.loggedin = true;
+  }else{
+    req.session.loggedin = false;
+  }
+  next();
+});
 app.use(bodyParser.json({limit : "30mb" , extended : true}));
 app.use(bodyParser.urlencoded({limit : "30mb" , extended : true}));
 app.use(
   cors({
   origin: "http://localhost:3000", 
   credentials: true 
-  })); 
+})); 
  
+
+
 app.use("/posts",router);
 app.use("/oauth",auth);
 

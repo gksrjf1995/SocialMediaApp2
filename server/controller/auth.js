@@ -16,7 +16,7 @@ export const logout = (req,res)=>{
 }
 
 export const success = (req,res)=>{
-  
+    console.log(req.session.gitdata.login);
     res.status(200).json({
         user: req.user,
         gitdata : req.session.gitdata,
@@ -53,8 +53,8 @@ export const githublogin = async (req,res)=>{
             
             req.session.gitdata = get_token.data
             req.session.gitdata.token = token
+            
             return res.status(200).redirect("http://localhost:3000");
-
         }
         
     }catch(err){
@@ -76,7 +76,6 @@ export const homegetData = async (req,res)=>{
     
     const userid = await userModel.findOne({email});
     if(!userid) return res.json({message : "email이 다릅니다. 다시 시도하세용"});
-    
    
     let bytes  =  CryptoJS.AES.decrypt(userid.password, process.env.ENCRYPTO_SECRET);
     let originalText = bytes.toString(CryptoJS.enc.Utf8);
